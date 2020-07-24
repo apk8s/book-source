@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-config
+  namespace: gitlab
+data:
+  gitlab.rb: |-
+    gitlab_rails['gitlab_shell_ssh_port'] = 32222
+    prometheus['monitor_kubernetes'] = false
+
+    gitlab_rails['initial_root_password'] = "CHANGE ME"
+
+    external_url 'https://gitlab.apk8s.dev'
+
+    nginx['listen_port'] = 80
+    nginx['listen_https'] = false
+    nginx['proxy_set_headers'] = {
+      'X-Forwarded-Proto' => 'https',
+      'X-Forwarded-Ssl' => 'on'
+    }
+
+    registry_external_url 'https://reg.gitlab.apk8s.dev'
+
+    gitlab_rails['registry_enabled'] = true
+
+    registry_nginx['listen_port'] = 5050
+    registry_nginx['listen_https'] = false
+    registry_nginx['proxy_set_headers'] = {
+      'X-Forwarded-Proto' => 'https',
+      'X-Forwarded-Ssl' => 'on'
+    }
