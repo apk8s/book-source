@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: minio
+  namespace: data
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+spec:
+  rules:
+    - host: minio.data.dev5.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: minio
+              servicePort: 9000
+            path: /
+  tls:
+    - hosts:
+        - minio.data.dev5.apk8s.dev
+      secretName: minio-data-tls

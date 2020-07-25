@@ -1,0 +1,39 @@
+"elasticsearch": {
+            "1": {
+                "enable": true,
+                "format": "namespace",
+                "index": "processed",
+                "url": "http://elasticsearch:9200"
+            }
+      },
+"kafka": {
+            "1": {
+                "brokers": ["kafka:9092"],
+                "enable": true,
+                "sasl": {
+                    "enable": false,
+                    "password": "",
+                    "username": ""
+                },
+                "tls": {
+                    "clientAuth": 0,
+                    "enable": false,
+                    "skipVerify": false
+                },
+                "topic": "upload"
+            }
+        },
+        "mqtt": {
+            "1": {
+                "broker": "tcp://mqtt:1883",
+                "enable": true,
+                "keepAliveInterval": 0,
+                "password": "",
+                "qos": 0,
+                "queueDir": "",
+                "queueLimit": 0,
+                "reconnectInterval": 0,
+                "topic": "processed",
+                "username": ""
+            }
+        },

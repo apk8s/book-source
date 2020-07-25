@@ -1,0 +1,53 @@
+{
+  "EventName": "s3:ObjectCreated:Put",
+  "Key": "upload/test.csv",
+  "Records": [
+    {
+      "eventVersion": "2.0",
+      "eventSource": "minio:s3",
+      "awsRegion": "",
+      "eventTime": "2019-12-27T08:27:40Z",
+      "eventName": "s3:ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "3Fh36b37coCN3w8GAM07"
+      },
+      "requestParameters": {
+        "accessKey": "3Fh36b37coCN3w8GAM07",
+        "region": "",
+        "sourceIPAddress": "23.240.73.214"
+      },
+      "responseElements": {
+        "x-amz-request-id": "15E42D02F9784AD2",
+        "x-minio-deployment-id": "0e8f8…",
+        "x-minio-origin-endpoint": "http://10.32.128.13:9000"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "Config",
+        "bucket": {
+          "name": "upload",
+          "ownerIdentity": {
+            "principalId": "3Fh36b378GAM07"
+          },
+          "arn": "arn:aws:s3:::upload"
+        },
+        "object": {
+          "key": "test.csv",
+          "eTag": "d41d8cd98f998ecf8427e",
+          "contentType": "text/csv",
+          "userMetadata": {
+            "content-type": "text/csv",
+            "etag": "d41d8cd90998ecf8427e"
+          },
+          "versionId": "1",
+          "sequencer": "15E42D02FD98E21B"
+        }
+      },
+      "source": {
+        "host": "23.240.73.214",
+        "port": "",
+        "userAgent": "MinIO (darwin…"
+      }
+    }
+  ]
+}
