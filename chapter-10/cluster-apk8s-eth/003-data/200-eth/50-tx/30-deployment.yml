@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eth-geth-tx
+  namespace: data
+  labels:
+    app: eth-geth-tx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eth-geth-tx
+  template:
+    metadata:
+      labels:
+        app: eth-geth-tx
+    spec:
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: eth-geth
+      initContainers:
+        - name: init-genesis
+          image: ethereum/client-go:v1.9.13
+          imagePullPolicy: IfNotPresent
+          args:
+            - "init"
+            - "/var/geth/genesis.json"
+          volumeMounts:
+            - name: data
+              mountPath: /root/.ethereum
+            - name: config
+              mountPath: /var/geth
+        - name: get-bootnodes
+          image: ethereum/client-go:v1.9.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              apk add --no-cache curl;
+              COUNT=0;
+              echo "calling $BOOTNODE_REGISTRAR_SVC"
+              while [ $COUNT -le 100 ]
+              do
+                curl -m 5 -s $BOOTNODE_REGISTRAR_SVC | xargs echo -n >> /geth/bootnodes;
+                if [ -s /geth/bootnodes ]
+                then
+                  cat /geth/bootnodes;
+                  exit 0;
+                fi;
+
+                echo "Attempt $COUNT. No bootnodes found...";
+                sleep 2 || break;
+                COUNT=$((COUNT+1));
+              done;
+              echo "ERROR: Unable to find bootnodes.";
+              exit 0;
+          env:
+            - name: BOOTNODE_REGISTRAR_SVC
+              value: eth-bootnode-registrar
+          volumeMounts:
+            - name: data
+              mountPath: /geth
+      containers:
+        - name: geth-tx
+          image: ethereum/client-go:v1.9.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "geth --nousb --bootnodes=`cat /root/.ethereum/bootnodes` --rpc --rpcaddr='0.0.0.0' --rpcapi=eth,net,web3 --rpcvhosts='*' --rpccorsdomain='*' --ws --networkid=${NETWORK_ID} --ethstats=${HOSTNAME}:${ETHSTATS_SECRET}@${ETHSTATS_SVC} --verbosity=2"
+          env:
+            - name: ETHSTATS_SVC
+              value: eth-ethstats:8080
+            - name: ETHSTATS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: eth-ethstats
+                  key: WS_SECRET
+            - name: NETWORK_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: eth-geth
+                  key: networkid
+          ports:
+            - name: rpc
+              containerPort: 8545
+            - name: ws
+              containerPort: 8546
+            - name: discovery-udp
+              containerPort: 30303
+              protocol: UDP
+            - name: discovery-tcp
+              containerPort: 30303
+          volumeMounts:
+            - name: data
+              mountPath: /root/.ethereum

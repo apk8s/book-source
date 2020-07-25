@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: eth-ethstats
+  namespace: data
+  labels:
+    app: eth-ethstats
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  rules:
+    - host: stats.data.eth.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: eth-ethstats
+              servicePort: 8080
+            path: /
+  tls:
+    - hosts:
+        - stats.data.eth.apk8s.dev
+      secretName: eth-ethstats-production-tls

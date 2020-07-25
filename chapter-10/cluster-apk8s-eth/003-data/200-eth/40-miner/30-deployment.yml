@@ -1,0 +1,118 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eth-geth-miner
+  namespace: data
+  labels:
+    app: eth-geth-miner
+spec:
+  replicas: 3
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: eth-geth-miner
+  template:
+    metadata:
+      labels:
+        app: eth-geth-miner
+    spec:
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: eth-geth
+      initContainers:
+        - name: init-genesis
+          image: ethereum/client-go:v1.9.13
+          imagePullPolicy: IfNotPresent
+          args:
+            - "init"
+            - "/var/geth/genesis.json"
+          volumeMounts:
+            - name: data
+              mountPath: /root/.ethereum
+            - name: config
+              mountPath: /var/geth
+        - name: create-account
+          image: ethereum/client-go:v1.9.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "printf '$(ACCOUNT_SECRET)\n$(ACCOUNT_SECRET)\n' | geth account new"
+          env:
+            - name: ACCOUNT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: eth-geth-miner
+                  key: accountsecret
+          volumeMounts:
+            - name: data
+              mountPath: /root/.ethereum
+        - name: get-bootnodes
+          image: ethereum/client-go:v1.9.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              apk add --no-cache curl;
+              CNT=0;
+              echo "retrieving bootnodes from $BOOTNODE_REGISTRAR_SVC"
+              while [ $CNT -le 90 ]
+              do
+                curl -m 5 -s $BOOTNODE_REGISTRAR_SVC | xargs echo -n >> /geth/bootnodes;
+                if [ -s /geth/bootnodes ]
+                then
+                  cat /geth/bootnodes;
+                  exit 0;
+                fi;
+
+                echo "no bootnodes found. retrying $CNT...";
+                sleep 2 || break;
+                CNT=$((CNT+1));
+              done;
+              echo "WARNING. unable to find bootnodes.";
+              exit 0;
+          env:
+            - name: BOOTNODE_REGISTRAR_SVC
+              value: eth-bootnode-registrar
+          volumeMounts:
+            - name: data
+              mountPath: /geth
+      containers:
+        - name: geth-miner
+          image: ethereum/client-go:v1.9.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "geth --bootnodes=\"`cat /root/.ethereum/bootnodes`\" --mine --minerthreads=1 --nousb --miner.etherbase=0 --networkid=${NETWORK_ID} --ethstats=${HOSTNAME}:${ETHSTATS_SECRET}@${ETHSTATS_SVC} --verbosity=3"
+          env:
+            - name: ETHSTATS_SVC
+              value: eth-ethstats:8080
+            - name: ETHSTATS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: eth-ethstats
+                  key: WS_SECRET
+            - name: NETWORK_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: eth-geth
+                  key: networkid
+          ports:
+            - name: discovery-udp
+              containerPort: 30303
+              protocol: UDP
+            - name: discovery-tcp
+              containerPort: 30303
+          volumeMounts:
+            - name: data
+              mountPath: /root/.ethereum
+          resources:
+            limits:
+              cpu: "400m"
+            requests:
+              cpu: "400m"

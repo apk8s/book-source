@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eth-bootnode
+  namespace: data
+  labels:
+    app: eth-bootnode
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: eth-bootnode
+  template:
+    metadata:
+      labels:
+        app: eth-bootnode
+    spec:
+      volumes:
+        - name: data
+          emptyDir: {}
+      initContainers:
+        - name: genkey
+          image: ethereum/client-go:alltools-v1.9.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "bootnode --genkey=/etc/bootnode/node.key"
+          volumeMounts:
+            - name: data
+              mountPath: /etc/bootnode
+      containers:
+        - name: bootnode
+          image: ethereum/client-go:alltools-v1.9.13
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: ".5"
+            requests:
+              cpu: "0.25"
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "bootnode --nodekey=/etc/bootnode/node.key --verbosity=4"
+          volumeMounts:
+            - name: data
+              mountPath: /etc/bootnode
+          ports:
+            - name: discovery
+              containerPort: 30301
+              protocol: UDP
+        - name: bootnode-server
+          image: ethereum/client-go:alltools-v1.9.13
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "while [ 1 ]; do echo -e \"HTTP/1.1 200 OK\n\nenode://$(bootnode -writeaddress --nodekey=/etc/bootnode/node.key)@$(POD_IP):30301\" | nc -l -v -p 8080 || break; done;"
+          volumeMounts:
+            - name: data
+              mountPath: /etc/bootnode
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            - containerPort: 8080

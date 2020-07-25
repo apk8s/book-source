@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eth-bootnode-registrar
+  namespace: data
+  labels:
+    app: eth-bootnode-registrar
+spec:
+  selector:
+    app: eth-bootnode-registrar
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9898
