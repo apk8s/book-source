@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hive
+  namespace: data
+  labels:
+    app: hive
+spec:
+  selector:
+    app: hive
+  ports:
+    - protocol: "TCP"
+      port: 10000
+      targetPort: tcp-thrift
+      name: tcp-thrift
+    - protocol: "TCP"
+      port: 9083
+      targetPort: tcp-thrift-meta
+      name: tcp-thrift-meta
+    - protocol: "TCP"
+      port: 10002
+      targetPort: http-hwi
+      name: http-hwi
+  type: ClusterIP

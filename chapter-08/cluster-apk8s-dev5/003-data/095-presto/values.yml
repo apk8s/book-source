@@ -1,0 +1,57 @@
+presto:
+  environment: "production"
+  workers: 2
+  logLevel: "INFO"
+
+image:
+  repository: "wiwdata/presto"
+  tag: "0.217"
+  pullPolicy: "IfNotPresent"
+
+service:
+  type: ClusterIP
+
+catalog:
+  obj.properties: |
+    connector.name=hive-hadoop2
+    hive.metastore=file
+    hive.metastore.catalog.dir=s3://metastore/
+    hive.allow-drop-table=true
+    hive.s3.aws-access-key= miniobucketuserid
+    hive.s3.aws-secret-key= miniobucketuserpassword
+    hive.s3.endpoint=http://minio:9000
+    hive.s3.path-style-access=true
+    hive.s3.ssl.enabled=false
+    hive.s3select-pushdown.enabled=true
+
+  hive.properties: |
+    connector.name=hive-hadoop2
+    hive.metastore.uri=thrift://hive:9083
+    hive.allow-drop-table=true
+    hive.s3.aws-access-key= miniobucketuserid
+    hive.s3.aws-secret-key= miniobucketuserpassword
+    hive.s3.endpoint=http://minio:9000
+    hive.s3.path-style-access=true
+    hive.s3.ssl.enabled=false
+
+  cassandra.properties: |
+    connector.name=cassandra
+    cassandra.contact-points=cassandra-data-r1-0,cassandra-data-r1-1,cassandra-data-r1-2
+
+  mysql.properties: |
+    connector.name=mysql
+    connection-url=jdbc:mysql://mysql:3306
+    connection-user= root
+    connection-password= mysqlrootpassword
+
+coordinatorConfigs: {}
+workerConfigs: {}
+environmentVariables: {}
+coordinatorResources: {}
+workerResources: {}
+coordinatorNodeSelector: {}
+workerNodeSelector: {}
+coordinatorTolerations: []
+workerTolerations: {}
+coordinatorAffinity: {}
+workerAffinity: {}

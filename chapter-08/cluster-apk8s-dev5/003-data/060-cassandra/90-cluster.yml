@@ -1,0 +1,29 @@
+apiVersion: cassandra.rook.io/v1alpha1
+kind: Cluster
+metadata:
+  name: cassandra
+  namespace: data
+spec:
+  version: 3.11.1
+  mode: cassandra
+  datacenter:
+    name: apk8s
+    racks:
+      - name: r1
+        members: 3
+        storage:
+          volumeClaimTemplates:
+            - metadata:
+                name: cassandra-data
+              spec:
+                storageClassName: rook-ceph-block
+                resources:
+                  requests:
+                    storage: 5Gi
+        resources:
+          requests:
+            cpu: 1
+            memory: 2Gi
+          limits:
+            cpu: 1
+            memory: 2Gi

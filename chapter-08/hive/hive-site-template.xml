@@ -1,0 +1,34 @@
+<configuration>
+    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:mysql://MYSQL_ENDPOINT/objectmetastore?createDatabaseIfNotExist=true&amp;useSSL=false</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>com.mysql.jdbc.Driver</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>MYSQL_USER</value>
+    </property>
+    <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>MYSQL_PASSWORD</value>
+    </property>
+    <property>
+        <name>fs.s3a.endpoint</name>
+        <value>S3A_ENDPOINT</value>
+    </property>
+    <property>
+        <name>fs.s3a.access.key</name>
+        <value>S3A_ACCESS_KEY</value>
+    </property>
+    <property>
+        <name>fs.s3a.secret.key</name>
+        <value>S3A_SECRET_KEY</value>
+    </property>
+    <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>S3A_PATH_STYLE_ACCESS</value>
+    </property>
+</configuration>
