@@ -33,7 +33,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 - [Listing 3-14: CephFilesystem](/chapter-03/cluster-apk8s-dev1/000-cluster/20-rook-ceph/75-rook-ceph-clusterfs.yml)
 - [Listing 3-15: Monitoring README](/chapter-03/cluster-apk8s-dev1/000-cluster/30-monitoring/README.md)
 
-## Chapter 4 Listings
+### Chapter 4: In-Platform CI/CD
 
 - [Listing 4-1: ServiceAccount and CluserRoleBinding for GitLab](/chapter-04/cluster-apk8s-dev2/000-cluster/40-gitlab-integration/05-rbac.yml)
 - [Listing 4-2: Custom JupyterLab](/chapter-04/ds/notebook-apk8s/Dockerfile)<!-- @IGNORE PREVIOUS: link -->
