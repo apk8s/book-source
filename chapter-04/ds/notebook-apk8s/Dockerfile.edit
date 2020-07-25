@@ -1,0 +1,19 @@
+# Installs blockchain, data science and machine learning
+# python packages
+RUN pip install --no-cache \
+    rubix \
+    python-gitlab \
+    scipy \
+    numpy \
+    pandas \
+    scikit-learn \
+    matplotlib \
+    tensorflow \
+    torch \
+    torchvision \
+    fastai \
+    octave_kernel \
+    jupyterlab-git \
+    paho-mqtt \
+    web3 \
+    py-solc
