@@ -4,7 +4,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 
 ## Listings
 
-### Chapter 2: DevOps Infrastructure
+### Chapter 2: [DevOps Infrastructure](chapter-02)
 
 - [Listing 2-1: Cert Manager](/chapter-02/k8s/00-cluster/00-cert-manager-helm.yml)
 - [Listing 2-2: Cluster Issuer](/chapter-02/k8s/00-cluster/05-cluster-issuer.yml)
@@ -15,7 +15,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 - [Listing 2-7: Gitlab Deployment](/chapter-02/k8s/01-gitlab/40-deployment.yml)
 - [Listing 2-8: Gitlab Ingress](/chapter-02/k8s/01-gitlab/50-ingress.yml)
 
-### Chapter 3: Development Environment
+### Chapter 3: [Development Environment](chapter-03)
 
 - [Listing 3-1: Ingress Nginx Namespace](/chapter-03/cluster-apk8s-dev1/000-cluster/00-ingress-nginx/00-namespace.yml)
 - [Listing 3-2: Ingress Nginx RBAC Service Account](/chapter-03/cluster-apk8s-dev1/000-cluster/00-ingress-nginx/05-serviceaccount.yml)
@@ -33,7 +33,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 - [Listing 3-14: CephFilesystem](/chapter-03/cluster-apk8s-dev1/000-cluster/20-rook-ceph/75-rook-ceph-clusterfs.yml)
 - [Listing 3-15: Monitoring README](/chapter-03/cluster-apk8s-dev1/000-cluster/30-monitoring/README.md)
 
-### Chapter 4: In-Platform CI/CD
+### Chapter 4: [In-Platform CI/CD](chapter-04)
 
 - [Listing 4-1: ServiceAccount and CluserRoleBinding for GitLab](/chapter-04/cluster-apk8s-dev2/000-cluster/40-gitlab-integration/05-rbac.yml)
 - [Listing 4-2: Custom JupyterLab](/chapter-04/ds/notebook-apk8s/Dockerfile)<!-- @IGNORE PREVIOUS: link -->
@@ -42,7 +42,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 - [Listing 4-5: Editing the notebook-testing default Service Account](/chapter-04/NotebookServiceAccountEdit.yml)
 - [Listing 4-6: Source fragment from Dockerfile](/chapter-04/ds/notebook-apk8s/Dockerfile.edit)
 
-### Chapter 5: Pipeline
+### Chapter 5: [Pipeline](chapter-05)
 - [Listing 5-1: Development Cluster configuration layout](/chapter-05/ClusterConfigLayoutCheckpoint.txt)
 - [Listing 5-2: data Namespace](/chapter-05/cluster-apk8s-dev3/003-data/000-namespace/00-namespace.yml)
 - [Listing 5-3: Certificates for the data Namespace](/chapter-05/cluster-apk8s-dev3/003-data/000-namespace/05-certs.yml)
@@ -59,7 +59,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 - [Listing 5-14: Mosquitto Deployment](/chapter-05/cluster-apk8s-dev3/003-data/050-mqtt/30-deployment.yml)
 - [Listing 5-15: Data Pipeline Development Cluster configuration layout](/chapter-05/cluster-apk8s-dev3/ConfigLayout.txt)
 
-### Chapter 6: Indexing and Analytics
+### Chapter 6: [Indexing and Analytics](chapter-06)
 
 - [Listing 6-1: Installing kernel headers and the rdb kernel module](/chapter-06/InstallingKernelHeaders.txt)
 - [Listing 6-2: Development environment prerequisites](/chapter-06/DevelopmentEnvironmentPrerequisites.txt)
@@ -86,7 +86,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 - [Listing 6-23: JupyterHub Ingress](/chapter-06/cluster-apk8s-dev4/003-data/100-jupterhub/50-ingress.yml)
 - [Listing 6-24: Indexing and analytics development cluster configuration layout](/chapter-06/ConfigLayout.txt)
 
-### Chapter 7: Data Lake
+### Chapter 7: [Data Lake](chapter-07)
 
 - [Listing 7-1: MinIO operator](/chapter-07/cluster-apk8s-dev5/000-cluster/22-minio/00-operator.yml)
 - [Listing 7-2: MinIO cluster configuration](/chapter-07/cluster-apk8s-dev5/003-data/070-minio/50-cluster.yml)
@@ -98,7 +98,7 @@ Source code from the book Advanced Platform Development with Kubernetes by [Crai
 - [Listing 7-8: Update `005-data-lab/000-namespace/07-role.yml`](/chapter-07/cluster-apk8s-dev5/005-data-lab/000-namespace/07-role.yml)
 - [Listing 7-9 Monitor Job state and cleanup](/chapter-07/notebook/KubernetesJobs.ipynb)
 
-### Chapter 8: Data Warehouses
+### Chapter 8: [Data Warehouses](chapter-08)
 
 - [Listing 8-1: MySQL operator Namespace](/chapter-08/cluster-apk8s-dev5/000-cluster/25-mysql-operator/00-namespace.yml)
 - [Listing 8-2: MySQL cluster configuration](/chapter-08/cluster-apk8s-dev5/003-data/080-mysql/90-cluster.yml)
