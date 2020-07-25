@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: data-cert
+  namespace: data
+spec:
+  secretName: data-production-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: data.dev4.apk8s.dev
+  dnsNames:
+    - data.dev4.apk8s.dev
+    - auth.data.dev4.apk8s.dev
+    - lab.data.dev4.apk8s.dev
+    - kib.data.dev4.apk8s.dev

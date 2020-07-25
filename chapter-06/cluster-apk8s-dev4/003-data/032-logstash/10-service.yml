@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: logstash
+  namespace: data
+spec:
+  selector:
+    app: logstash
+  ports:
+    - protocol: TCP
+      port: 5044
+  type: ClusterIP

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: data
+  labels:
+    app: kibana
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      volumes:
+        - name: kibana-config-volume
+          configMap:
+            name: kibana
+      containers:
+        - name: kibana
+          image: docker.elastic.co/kibana/kibana-oss:7.1.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: kibana-config-volume
+              mountPath: /usr/share/kibana/config
+          env:
+            - name: CLUSTER_NAME
+              value: apk8s
+          ports:
+            - name: http
+              containerPort: 5601

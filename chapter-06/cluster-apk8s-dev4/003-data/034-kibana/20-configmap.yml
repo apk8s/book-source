@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kibana
+  namespace: data
+  labels:
+    app: kibana
+data:
+  kibana.yml: |-
+    server.name: kib.data.dev4.apk8s.dev
+    server.host: "0"
+    elasticsearch.hosts: http://elasticsearch:9200

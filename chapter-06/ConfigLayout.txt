@@ -1,0 +1,32 @@
+.
+└── cluster-apk8s-dev4
+    ├── 000-cluster
+    ├── 003-data
+    │   ├── 000-namespace
+    │   ├── 005-keycloak
+    │   │   ├── 10-service.yml
+    │   │   ├── 15-secret.yml
+    │   │   ├── 30-deployment.yml
+    │   │   └── 50-ingress.yml
+    │   ├── 010-zookeeper
+    │   ├── 020-kafka
+    │   ├── 030-elasticsearch
+    │   │   ├── 10-service.yml
+    │   │   └── 40-statefulset.yml
+    │   ├── 032-logstash
+    │   │   ├── 10-service.yml
+    │   │   ├── 20-configmap-config.yml
+    │   │   ├── 20-configmap-pipeline.yml
+    │   │   └── 30-deployment.yml
+    │   ├── 034-kibana
+    │   │   ├── 10-service.yml
+    │   │   ├── 20-configmap.yml
+    │   │   ├── 30-deployment.yml
+    │   │   └── 50-ingress.yml
+    │   └── 050-mqtt
+    └── 005-data-lab
+	  └── 000-namespace
+            ├── 00-namespace.yml
+            ├── 05-serviceaccount.yml
+            ├── 07-role.yml
+            └── 08-rolebinding.yml

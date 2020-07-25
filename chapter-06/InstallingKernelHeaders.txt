@@ -1,0 +1,5 @@
+$ # install kernel headers
+$ apt install -y linux-headers-$(uname -r)
+
+$ # load the Ceph rbd kernel module
+$ modprobe rbd

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web-keycloak
+  namespace: data
+spec:
+  serviceName: web-keycloak
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: web-keycloak
+  template:
+    metadata:
+      labels:
+        app: web-keycloak
+    spec:
+      initContainers:
+        - name: keycloak-init-chown
+          image: alpine:3.10.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: keycloak-db
+              mountPath: /data
+          command: ["chown"]
+          args: ["-R","1000:1000","/data"]
+      containers:
+        - name: web-keycloak
+          image: jboss/keycloak:6.0.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PROXY_ADDRESS_FORWARDING
+              value: "true"
+            - name: KEYCLOAK_HOSTNAME
+              value: "auth.data.dev4.apk8s.dev"
+            - name: KEYCLOAK_USER
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key: keycloak_user
+            - name: KEYCLOAK_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key: keycloak_password
+            - name: KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak
+                  key: keystore_password
+          ports:
+            - name: http-web
+              containerPort: 8080
+          volumeMounts:
+            - name: keycloak-db
+              mountPath: /opt/jboss/keycloak/standalone/data
+  volumeClaimTemplates:
+    - metadata:
+        name: keycloak-db
+      spec:
+        storageClassName: rook-ceph-block
+        accessModes: [ ReadWriteOnce ]
+        resources:
+          requests:
+            storage: 5Gi

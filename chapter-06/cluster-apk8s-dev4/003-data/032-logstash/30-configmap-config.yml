@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-config
+  namespace: data
+data:
+  logstash.yml: |
+    http.host: "0.0.0.0"
+    xpack.monitoring.enabled: false
+
+  pipelines.yml: |
+    - pipeline.id: main
+      path.config: "/usr/share/logstash/pipeline"
+  log4j2.properties: |
+    status = error
+    name = LogstashPropertiesConfig
+
+    appender.console.type = Console
+    appender.console.name = plain_console
+    appender.console.layout.type = PatternLayout
+    appender.console.layout.pattern = [%d{ISO8601}][%-5p][%-25c] %m%n
+
+    appender.json_console.type = Console
+    appender.json_console.name = json_console
+    appender.json_console.layout.type = JSONLayout
+    appender.json_console.layout.compact = true
+    appender.json_console.layout.eventEol = true
+
+    rootLogger.level = ${sys:ls.log.level}
+    rootLogger.appenderRef.console.ref = ${sys:ls.log.format}_console
+  jvm.options: |
+    ## JVM configuration
+
+    -Xms512m
+    -Xmx523m
+
+    -XX:+UseParNewGC
+    -XX:+UseConcMarkSweepGC
+    -XX:CMSInitiatingOccupancyFraction=75
+    -XX:+UseCMSInitiatingOccupancyOnly
+    -Djava.awt.headless=true
+    -Dfile.encoding=UTF-8
+    -Djruby.compile.invokedynamic=true
+    -Djruby.jit.threshold=0
+    -XX:+HeapDumpOnOutOfMemoryError
+    -Djava.security.egd=file:/dev/urandom

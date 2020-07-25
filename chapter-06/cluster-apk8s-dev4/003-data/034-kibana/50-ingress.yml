@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kibana
+  namespace: data
+  labels:
+    app: kibana
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: sysop-basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+spec:
+  rules:
+    - host: kib.data.dev4.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: kibana
+              servicePort: 5601
+            path: /
+  tls:
+    - hosts:
+        - kib.data.dev4.apk8s.dev
+      secretName: data-production-tls

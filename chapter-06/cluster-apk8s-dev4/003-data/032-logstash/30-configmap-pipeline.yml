@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: logstash-pipeline
+  namespace: data
+data:
+  logstash.conf: |
+    input {
+      kafka {
+        bootstrap_servers => "kafka-headless:9092"
+        topics => [ "messages", "metrics"]
+        auto_offset_reset => "latest"
+        auto_commit_interval_ms => "500"
+        enable_auto_commit => true
+        codec => json
+        decorate_events => true
+      }
+    }
+
+    output {
+      if [@metadata][kafka][topic] {
+        elasticsearch {
+            hosts => [ "elasticsearch:9200" ]
+            index => "apk8s-%{[@metadata][kafka][topic]}-%{+YYYY.MM.dd}"
+        }
+      }
+    }

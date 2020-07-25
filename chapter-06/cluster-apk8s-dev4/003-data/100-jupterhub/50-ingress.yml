@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: jupyterhub
+  namespace: data
+spec:
+  rules:
+    - host: lab.data.dev4.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: proxy-public
+              servicePort: 80
+            path: /
+  tls:
+    - hosts:
+        - lab.data.dev4.apk8s.dev
+      secretName: data-production-tls
