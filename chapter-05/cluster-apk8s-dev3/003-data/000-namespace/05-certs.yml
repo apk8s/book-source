@@ -1,0 +1,23 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: data-cert
+  namespace: data
+spec:
+  secretName: data-production-tls
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: data.dev3.apk8s.dev
+  dnsNames:
+    - data.dev3.apk8s.dev
+    - nifi.data.dev3.apk8s.dev
+    - kib.data.dev3.apk8s.dev
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - data.dev3.apk8s.dev
+          - nifi.data.dev3.apk8s.dev
+          - kib.data.dev3.apk8s.dev

@@ -1,0 +1,12 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: kafka
+  namespace: data
+  labels:
+    app: kafka
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: kafka

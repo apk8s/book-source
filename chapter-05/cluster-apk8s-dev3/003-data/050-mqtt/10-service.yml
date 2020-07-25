@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqtt
+  namespace: data
+  labels:
+    app: mqtt
+spec:
+  selector:
+    app: mqtt
+  ports:
+    - protocol: "TCP"
+      port: 1883
+      targetPort: 1883
+  type: ClusterIP

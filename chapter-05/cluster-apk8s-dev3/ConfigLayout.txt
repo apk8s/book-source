@@ -1,0 +1,21 @@
+.
+└── cluster-apk8s-dev3
+    ├── 000-cluster
+    └── 003-data
+        ├── 000-namespace
+  │   ├── 00-namespace.yml
+  │   └── 05-certs.yml
+        ├── 010-zookeeper
+  │   ├── 10-service-headless.yml
+  │   ├── 10-service.yml
+  │   └── 40-statefulset.yml
+  ├── 020-kafka
+  │   ├── 10-service-headless.yml
+  │   ├── 10-service.yml
+  │   ├── 40-statefulset.yml
+  │   ├── 45-pdb.yml
+  │   └── 99-pod-test-client.yml
+        └── 050-mqtt
+      ├── 10-service.yml
+      ├── 20-configmap.yml
+      └── 30-deployment.yml
