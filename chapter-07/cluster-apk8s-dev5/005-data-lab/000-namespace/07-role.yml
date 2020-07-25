@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: data-lab
+  namespace: data-lab
+rules:
+  - apiGroups: ["","batch"]
+    resources: ["pods",
+                "pods/log",
+                "events",
+                "services",
+                "jobs",
+                "jobs/status"]
+    verbs: ["delete",
+            "create",
+            "get",
+            "watch",
+            "list",
+            "endpoints",
+            "patch",
+            "events"]
