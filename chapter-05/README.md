@@ -1,6 +1,6 @@
-# Pipeline
+# Chapter 5: Pipeline
 
-## Chapter 5 Listings
+## Listings
 
 - [Listing 5-1: Development Cluster configuration layout](/chapter-05/ClusterConfigLayoutCheckpoint.txt)
 - [Listing 5-2: data Namespace](/chapter-05/cluster-apk8s-dev3/003-data/000-namespace/00-namespace.yml)

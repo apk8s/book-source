@@ -1,6 +1,6 @@
-# Development Environment
+# Chapter 3: Development Environment
 
-## Chapter 3 Listings
+## Listings
 
 - [Listing 3-1: Ingress Nginx Namespace](/chapter-03/cluster-apk8s-dev1/000-cluster/00-ingress-nginx/00-namespace.yml)
 - [Listing 3-2: Ingress Nginx RBAC Service Account](/chapter-03/cluster-apk8s-dev1/000-cluster/00-ingress-nginx/05-serviceaccount.yml)

@@ -1,6 +1,6 @@
-# Data Warehouses
+# Chapter 8: Data Warehouses
 
-## Chapter 8 Listings
+## Listings
 
 - [Listing 8-1: MySQL operator Namespace](/chapter-08/cluster-apk8s-dev5/000-cluster/25-mysql-operator/00-namespace.yml)
 - [Listing 8-2: MySQL cluster configuration](/chapter-08/cluster-apk8s-dev5/003-data/080-mysql/90-cluster.yml)

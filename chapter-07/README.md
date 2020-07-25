@@ -1,6 +1,6 @@
-# Data Lakes
+# Chapter 7: Data Lakes
 
-## Chapter 7 Listings
+## Listings
 
 - [Listing 7-1: MinIO operator](/chapter-07/cluster-apk8s-dev5/000-cluster/22-minio/00-operator.yml)
 - [Listing 7-2: MinIO cluster configuration](/chapter-07/cluster-apk8s-dev5/003-data/070-minio/50-cluster.yml)

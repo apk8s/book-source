@@ -1,6 +1,6 @@
-# Indexing and Analytics
+# Chapter 6: Indexing and Analytics
 
-## Chapter 6 Listings
+## Listings
 
 - [Listing 6-1: Installing kernel headers and the rdb kernel module](/chapter-06/InstallingKernelHeaders.txt)
 - [Listing 6-2: Development environment prerequisites](/chapter-06/DevelopmentEnvironmentPrerequisites.txt)

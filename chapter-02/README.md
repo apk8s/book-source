@@ -1,4 +1,4 @@
-# DevOps Infrastructure: k3s + GitLab
+# Chapter 2: DevOps Infrastructure: k3s + GitLab
 
 Run [GitLab] on a single-node Kubernetes cluster using [k3s].
 
@@ -6,7 +6,7 @@ Run [GitLab] on a single-node Kubernetes cluster using [k3s].
 
 The Kubernetes manifests in the k8s directory use the domain **apk8s.dev**, along with other values that require [customization].
 
-## Chapter 2 Listings
+## Listings
 
 - [Listing 2-1: Cert Manager](/chapter-02/k8s/00-cluster/00-cert-manager-helm.yml)
 - [Listing 2-2: Cluster Issuer](/chapter-02/k8s/00-cluster/05-cluster-issuer.yml)
