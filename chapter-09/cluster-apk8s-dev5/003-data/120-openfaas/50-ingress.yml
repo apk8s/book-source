@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: faas
+  namespace: data
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  rules:
+    - host: faas.data.dev5.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: gateway
+              servicePort: 8080
+            path: /
+  tls:
+    - hosts:
+        - faas.data.dev5.apk8s.dev
+      secretName: faas-data-production-tls

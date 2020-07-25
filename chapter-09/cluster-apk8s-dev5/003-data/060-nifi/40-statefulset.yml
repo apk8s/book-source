@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nifi
+  namespace: data
+  labels:
+    app: nifi
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: nifi
+  serviceName: nifi
+  template:
+    metadata:
+      labels:
+        app: nifi
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                      - "nifi"
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: nifi
+          imagePullPolicy: IfNotPresent
+          image: apache/nifi:1.9.2
+          command:
+            - bash
+            - -ce
+            - |
+              FQDN=$(hostname -f)
+              PROP_FILE=${NIFI_HOME}/conf/nifi.properties
+
+              p_repl () {
+                echo "setting ${1}=${2}"
+                sed -i -e "s|^$1=.*$|$1=$2|" ${PROP_FILE}
+              }
+              p_repl nifi.remote.input.host ${FQDN}
+              p_repl nifi.cluster.is.node true
+              p_repl nifi.cluster.node.protocol.port 6007
+              p_repl nifi.cluster.node.address ${FQDN}
+              p_repl nifi.cluster.protocol.is.secure false
+              p_repl nifi.security.user.authorizer managed-authorizer
+              p_repl nifi.web.http.host ${FQDN}
+              p_repl nifi.web.http.port 8080
+              p_repl nifi.zookeeper.connect.string ${NIFI_ZOOKEEPER_CONNECT_STRING}
+              p_repl nifi.cluster.flow.election.max.wait.time "1 mins"
+
+              tail -F "${NIFI_HOME}/logs/nifi-app.log" & exec bin/nifi.sh run
+          env:
+            - name: NIFI_ZOOKEEPER_CONNECT_STRING
+              value: "zookeeper-headless:2181"
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            - containerPort: 6007
+              name: cluster
+              protocol: TCP

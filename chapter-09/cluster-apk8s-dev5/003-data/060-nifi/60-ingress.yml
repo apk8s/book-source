@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nifi
+  namespace: data
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: sysop-basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+spec:
+  rules:
+    - host: nifi.data.dev3.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: nifi
+              servicePort: 8080
+            path: /
+  tls:
+    - hosts:
+        - nifi.data.dev3.apk8s.dev
+      secretName: data-production-tls

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nifi
+  namespace: data
+  labels:
+    app: nifi
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  type: ClusterIP
+    clusterIP: None
+  selector:
+    app: nifi
+  ports:
+    - port: 8080
+      name: http
+    - port: 6007
+      name: cluster
