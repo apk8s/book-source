@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: hrdump
+  namespace: data
+spec:
+  schedule: "1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: hrdump
+              image: apk8s/pyreqobj:0.0.1
+              command: [
+                "/usr/local/bin/python",
+                "/scripts/hrdump.py"
+              ]
+              env:
+                - name: ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-creds-secret
+                      key: accesskey
+                - name: ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-creds-secret
+                      key: secretkey
+              volumeMounts:
+                - name: scripts
+                  mountPath: /scripts
+          volumes:
+            - name: scripts
+              configMap:
+                name: hrdump

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: smon
+  namespace: data
+  labels:
+    app: smon
+    component: sensor
+spec:
+  selector:
+    matchLabels:
+      name: smon
+  template:
+    metadata:
+      labels:
+        name: smon
+        component: sensor
+    spec:
+      nodeSelector:
+        kubernetes.io/role: sensor
+      tolerations:
+        - key: dedicated
+          value: pi
+          effect: NoSchedule
+      containers:
+        - name: smon
+          image: apk8s/mosquitto-clients:1.5.7_1
+          command: ["/bin/bash",
+                    "/scripts/collect.sh"]
+          env:
+            - name: DEVICE
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+            - name: sensor
+              mountPath: /sensor
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 50m
+              memory: 200Mi
+      volumes:
+        - name: sensor
+          hostPath:
+            path: /sys/class/thermal/thermal_zone0/
+        - name: scripts
+          configMap:
+            name: smon

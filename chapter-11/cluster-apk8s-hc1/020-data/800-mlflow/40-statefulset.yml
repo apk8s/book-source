@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mlflow
+  namespace: data
+  labels:
+    app: mlflow
+spec:
+  serviceName: mlflow
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: mlflow
+  template:
+    metadata:
+      labels:
+        app: mlflow
+    spec:
+      containers:
+        - name: mlflow
+          image: apk8s/mlflow:1.8.0-v0
+          imagePullPolicy: IfNotPresent
+          args: [
+            "server",
+            "--backend-store-uri=sqlite:///MLflow/data.db",
+            "--default-artifact-root=s3://MLflow/artifacts",
+            "--expose-prometheus=/metrics",
+            "--host=0.0.0.0",
+            "--port=5000"
+          ]
+          env:
+            - name: MLFLOW_S3_ENDPOINT_URL
+              value: http://minio-hl-svc.data:9000
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: minio-creds-secret
+                  key: accesskey
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-creds-secret
+                  key: secretkey
+          volumeMounts:
+            - name: mlflow-data-volume
+              mountPath: /mlflow
+          ports:
+            - name: http
+              containerPort: 5000
+  volumeClaimTemplates:
+    - metadata:
+        name: mlflow-data-volume
+      spec:
+        storageClassName: rook-ceph-block
+        accessModes: [ ReadWriteOnce ]
+        resources:
+          requests:
+            storage: 10Gi

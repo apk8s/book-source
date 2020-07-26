@@ -1,0 +1,58 @@
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  name: quality
+spec:
+  name: quality
+  predictors:
+    - graph:
+        children: []
+        implementation: MLFLOW_SERVER
+        modelUri: s3://mlflow/artifacts/2/1b3cfc890bd04a85a60fa0706b9e8592/artifacts/model
+        envSecretRefName: seldon-s3-model-secret
+        name: quality
+      name: default
+      replicas: 1
+      componentSpecs:
+        - spec:
+            containers:
+              - name: quality
+                readinessProbe:
+                  failureThreshold: 10
+                  initialDelaySeconds: 120
+                  periodSeconds: 10
+                  successThreshold: 1
+                  tcpSocket:
+                    port: http
+                  timeoutSeconds: 5
+                livenessProbe:
+                  failureThreshold: 10
+                  initialDelaySeconds: 120
+                  periodSeconds: 10
+                  successThreshold: 1
+                  tcpSocket:
+                    port: http
+                  timeoutSeconds: 5
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: quality
+  labels:
+    app: quality
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: quality.c2.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: quality-default
+              servicePort: 8000
+            path: /
+  tls:
+    - hosts:
+        - quality.c2.apk8s.dev
+      secretName: default-quality-production-tls

@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hrdump
+  namespace: data
+  labels:
+    app: hrdump
+data:
+  hrdump.py: |-
+    import requests
+    import pandas as pd
+    import boto3
+    import datetime
+    import os
+
+    d = datetime.datetime.now()
+    idx = f"sensor-{d.year}-{d.month:02d}"
+
+    query = {
+      "size": 10000,
+      "query": {
+        "range" : {
+          "collected" : {
+              "gte" : "now-1h"
+          }
+        }
+      }
+    }
+
+    r = requests.post(
+        f'http://elasticsearch.data:9200/{idx}/_search',
+        json=query
+    )
+
+    df = pd.DataFrame()
+
+    for rec in r.json()['hits']['hits']:
+        df = df.append(rec['_source'], ignore_index=True)
+
+    csv_data = df.to_csv(index_label="idx")
+
+    s3 = boto3.client('s3',
+      endpoint_url='http://minio-hl-svc.data:9000',
+      aws_access_key_id=os.environ['ACCESS_KEY_ID'],
+      aws_secret_access_key=os.environ['ACCESS_KEY'],
+      region_name='')
+
+    try:
+        s3.create_bucket(Bucket='sensor-hourly')
+    except s3.exceptions.BucketAlreadyOwnedByYou:
+        print("Bucket Exists")
+    except:
+        print("Unknown bucket error")
+
+    filename = d.strftime("%Y/%m-%d-%H.csv")
+    s3.put_object(Bucket='sensor-hourly', Key=filename, Body=csv_data)
+    print(f"Added object {filename} to bucket sensor-hourly")

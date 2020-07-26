@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mlflow
+  namespace: data
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    kubernetes.io/ingress.class: traefik
+    ingress.kubernetes.io/auth-type: "basic"
+    ingress.kubernetes.io/auth-secret: "sysop-basic-auth"
+spec:
+  rules:
+    - host: mlflow.hc1.apk8s.dev
+      http:
+        paths:
+          - backend:
+              serviceName: mlflow
+              servicePort: 5000
+            path: /
+  tls:
+    - hosts:
+        - mlflow.hc1.apk8s.dev
+      secretName: mlflow-production-tls

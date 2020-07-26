@@ -1,0 +1,71 @@
+proxy:
+  secretToken: "large_random_hex_string"
+  service:
+    type: ClusterIP
+
+singleuser:
+  image:
+    name: apk8s/datalab
+    tag: v0.0.5
+  defaultUrl: "/lab"
+  storage:
+    dynamic:
+      storageClass: rook-ceph-block
+      capacity: 10Gi
+  extraEnv:
+    MLFLOW_TRACKING_URI: "http://mlflow.data:5000"
+    MLFLOW_S3_ENDPOINT_URL: "http://minio-hl-svc.data:9000"
+  profileList:
+    - display_name: "DataLab Environment"
+      description: "Python, Julia, Octave and R."
+      default: true
+    - display_name: "GPU Data Science Environment."
+      description: "Data science applications and libraries with cuda-10.1 support."
+      kubespawner_override:
+        image: apk8s/jupyter-ds:cuda-10.1
+        extra_resource_guarantees:
+          nvidia.com/gpu: "1"
+        extra_resource_limits:
+          nvidia.com/gpu: "1"
+
+hub:
+  image:
+    name: jupyterhub/k8s-hub
+    tag: 0.9-dcde99a
+  db:
+    pvc:
+      storageClassName: rook-ceph-block
+  extraConfig:
+    jupyterlab: |-
+      c.Spawner.cmd = ['jupyter-labhub']
+      c.KubeSpawner.namespace = "data-lab"
+      c.KubeSpawner.service_account = "data-lab"
+    jupyterhub: |-
+      c.Authenticator.auto_login = True
+  extraEnv:
+    OAUTH2_AUTHORIZE_URL: https://auth.data.dev4.apk8s.dev/auth/realms/datalab/protocol/openid-connect/auth
+    OAUTH2_TOKEN_URL: https://auth.data.dev4.apk8s.dev/auth/realms/datalab/protocol/openid-connect/token
+    OAUTH_CALLBACK_URL: https://lab.data.dev4.apk8s.dev/hub/oauth_callback
+
+scheduling:
+  userScheduler:
+    enabled: true
+    replicas: 2
+    logLevel: 4
+    image:
+      name: gcr.io/google_containers/kube-scheduler-amd64
+      tag: v1.14.4
+
+auth:
+  type: custom
+  custom:
+    className: oauthenticator.generic.GenericOAuthenticator
+    config:
+      login_service: "Keycloak"
+      client_id: "datalab"
+      client_secret: "from_keycloak_client_config"
+      token_url: https://auth.data.dev4.apk8s.dev/auth/realms/datalab/protocol/openid-connect/token
+      userdata_url: https://auth.data.dev4.apk8s.dev/auth/realms/datalab/protocol/openid-connect/userinfo
+      userdata_method: GET
+      userdata_params: {'state': 'state'}
+      username_key: preferred_username

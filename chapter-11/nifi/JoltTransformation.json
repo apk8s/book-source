@@ -1,0 +1,14 @@
+[
+  {
+    "operation": "default",
+    "spec": {
+      "collected": "${now():toNumber()}"
+    }
+  },
+  {
+    "operation": "modify-overwrite-beta",
+    "spec": {
+      "collected": "=toLong"
+    }
+  }
+]

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smon
+  namespace: data
+  labels:
+    app: smon
+data:
+  collect.sh: |-
+    for (( ; ; ))
+    do
+      load=$(cat /proc/loadavg | cut -d\  -f 1)
+      temp=$(cat /sensor/temp)
+      mosquitto_pub \
+        -h mqtt.data \
+        -i $DEVICE \
+        -t sensor/$DEVICE \
+        -m "{\"device\":\"$DEVICE\",\"temp\":$temp, \"load\":$load}"
+      echo "device: $DEVICE, temp: $temp, load: $load"
+    sleep 15
+    done
