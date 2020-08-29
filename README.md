@@ -1,4 +1,5 @@
-# Advanced Platform Development with Kubernetes: Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning
+# Advanced Platform Development with Kubernetes:
+Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning.
 
 [![Book Cover - Advanced Platform Development with Kubernetes: Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning](cover-banner.jpg)](https://amzn.to/3g3ihZ3)
 
