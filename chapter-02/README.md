@@ -2,14 +2,16 @@
 
 Run [GitLab] on a single-node Kubernetes cluster using [k3s].
 
+[![Book Cover - Advanced Platform Development with Kubernetes: Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning](../img/apk8s-banner-w.jpg)](https://amzn.to/3g3ihZ3)
+
 ## Notes
 
 The Kubernetes manifests in the k8s directory use the domain **apk8s.dev**, along with other values that require [customization].
 
-## Technology
-  - [GitLab]
-  - [k3s]
-  - [Cert Manager]
+## Technology Reference
+- [GitLab]
+- [k3s]
+- [Cert Manager]
 
 ## Listings
 
