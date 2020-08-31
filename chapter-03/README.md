@@ -1,4 +1,16 @@
+[![Book Cover - Advanced Platform Development with Kubernetes: Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning](../img/apk8s-banner-w.jpg)](https://imti.co/kubernetes-platform-book/)
+
 # Chapter 3: Development Environment
+
+## Technology Reference
+- [WireGuard]
+- [Docker]
+- [Kubernetes] ([kubelet], [kubeadm], [kubectl])
+- [Ingress Nginx]
+- [Rook Ceph]
+  - [Ceph Block Storage]
+  - [Ceph Filesystem]
+- Monitoring ([kube-prometheus])
 
 ## Listings
 
@@ -17,3 +29,15 @@
 - [Listing 3-13: CephBlockPool and StorageClass](/chapter-03/cluster-apk8s-dev1/000-cluster/20-rook-ceph/70-rook-ceph-block.yml)
 - [Listing 3-14: CephFilesystem](/chapter-03/cluster-apk8s-dev1/000-cluster/20-rook-ceph/75-rook-ceph-clusterfs.yml)
 - [Listing 3-15: Monitoring README](/chapter-03/cluster-apk8s-dev1/000-cluster/30-monitoring/README.md)
+
+[Ceph Block Storage]: https://rook.io/docs/rook/v1.4/ceph-block.html
+[Docker]: https://www.docker.com/
+[kubectl]: https://kubernetes.io/docs/reference/kubectl/overview/
+[kubelet]: https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
+[Ceph Filesystem]: https://rook.io/docs/rook/v1.4/ceph-filesystem.html
+[Rook Ceph]: https://rook.io/docs/rook/v1.4/ceph-storage.html
+[kubeadm]: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+[Ingress Nginx]: https://github.com/kubernetes/ingress-nginx
+[WireGuard]: https://www.wireguard.com/
+[kube-prometheus]: https://github.com/prometheus-operator/kube-prometheus
+[Kubernetes]: https://kubernetes.io/
