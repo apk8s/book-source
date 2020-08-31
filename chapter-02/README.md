@@ -6,6 +6,11 @@ Run [GitLab] on a single-node Kubernetes cluster using [k3s].
 
 The Kubernetes manifests in the k8s directory use the domain **apk8s.dev**, along with other values that require [customization].
 
+## Technology
+  - [GitLab]
+  - [k3s]
+  - [Cert Manager]
+
 ## Listings
 
 - [Listing 2-1: Cert Manager](/chapter-02/k8s/00-cluster/00-cert-manager-helm.yml)
@@ -20,3 +25,6 @@ The Kubernetes manifests in the k8s directory use the domain **apk8s.dev**, alon
 [k3s]: https://k3s.io
 [GitLab]: https://gitlab.com/gitlab-org/gitlab
 [customization]: https://kubectl.docs.kubernetes.io/pages/app_management/introduction.html
+[Cert Manager]: https://cert-manager.io/
+[k3s]: https://k3s.io/
+[GitLab]: https://about.gitlab.com/
