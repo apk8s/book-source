@@ -1,8 +1,8 @@
+[![Book Cover - Advanced Platform Development with Kubernetes: Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning](../img/apk8s-banner-w.jpg)](https://imti.co/kubernetes-platform-book/)
+
 # Chapter 2: DevOps Infrastructure: k3s + GitLab
 
 Run [GitLab] on a single-node Kubernetes cluster using [k3s].
-
-[![Book Cover - Advanced Platform Development with Kubernetes: Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning](../img/apk8s-banner-w.jpg)](https://imti.co/kubernetes-platform-book/)
 
 ## Notes
 
