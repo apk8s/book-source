@@ -2,6 +2,11 @@
 
 # Chapter 10: Platforming Blockchain
 
+## Technology Reference
+- [Ethereum]
+  - [Geth]
+- [Ethstats]
+
 ## Listings
 
 - [Listing 10-1: Bootnode Service](/chapter-10/cluster-apk8s-eth/003-data/200-eth/10-bootnode/10-service.yml)
@@ -18,3 +23,7 @@
 - [Listing 10-12: Geth transaction node Service](/chapter-10/cluster-apk8s-eth/003-data/200-eth/50-tx/10-service.yml)
 - [Listing 10-13: Geth transaction node Deployment](/chapter-10/cluster-apk8s-eth/003-data/200-eth/50-tx/30-deployment.yml)
 - [Listing 10-14: OpenFaaS function for returning details on the last block in the Blockchain](/chapter-10/cluster-apk8s-eth/003-data/200-eth/functions/last-block/handler.py)<!-- @IGNORE PREVIOUS: link -->
+
+[Ethstats]: https://github.com/cubedro/eth-netstats
+[Geth]: https://geth.ethereum.org/
+[Ethereum]: https://ethereum.org/en/

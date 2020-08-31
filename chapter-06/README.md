@@ -2,6 +2,14 @@
 
 # Chapter 6: Indexing and Analytics
 
+## Technology Reference
+- [Elasticsearch]
+- [Logstash]
+- [Kibana]
+- [Keycloak] (IAM)
+- [JupyterHub]
+- [Kubernetes API]
+
 ## Listings
 
 - [Listing 6-1: Installing kernel headers and the rdb kernel module](/chapter-06/InstallingKernelHeaders.txt)
@@ -28,3 +36,10 @@
 - [Listing 6-22: JupyterHub Helm values](/chapter-06/cluster-apk8s-dev4/003-data/100-jupterhub/values.yml)
 - [Listing 6-23: JupyterHub Ingress](/chapter-06/cluster-apk8s-dev4/003-data/100-jupterhub/50-ingress.yml)
 - [Listing 6-24: Indexing and analytics development cluster configuration layout](/chapter-06/ConfigLayout.txt)
+
+[Kibana]: https://www.elastic.co/kibana
+[Elasticsearch]: https://www.elastic.co/elasticsearch/
+[JupyterHub]: https://jupyter.org/hub
+[Logstash]: https://www.elastic.co/logstash
+[Kubernetes API]: https://kubernetes.io/docs/concepts/overview/kubernetes-api/
+[Keycloak]: https://www.keycloak.org/

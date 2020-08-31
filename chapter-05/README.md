@@ -2,6 +2,11 @@
 
 # Chapter 5: Pipeline
 
+## Technology Reference
+- [Apache Zookeeper]
+- [Apache Kafka]
+- [Mosquitto] (MQTT)
+
 ## Listings
 
 - [Listing 5-1: Development Cluster configuration layout](/chapter-05/ClusterConfigLayoutCheckpoint.txt)
@@ -19,3 +24,7 @@
 - [Listing 5-13: Mosquitto configuration ConfigMap](/chapter-05/cluster-apk8s-dev3/003-data/050-mqtt/10-service.yml)
 - [Listing 5-14: Mosquitto Deployment](/chapter-05/cluster-apk8s-dev3/003-data/050-mqtt/30-deployment.yml)
 - [Listing 5-15: Data Pipeline Development Cluster configuration layout](/chapter-05/cluster-apk8s-dev3/ConfigLayout.txt)
+
+[Apache Zookeeper]: https://zookeeper.apache.org/
+[Mosquitto]: https://mosquitto.org/
+[Apache Kafka]: https://kafka.apache.org/

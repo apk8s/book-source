@@ -2,6 +2,12 @@
 
 # Chapter 8: Data Warehouses
 
+## Technology Reference
+- [MySQL]
+- [Apache Cassandra]
+- [Apache Hive]
+- [Presto]
+
 ## Listings
 
 - [Listing 8-1: MySQL operator Namespace](/chapter-08/cluster-apk8s-dev5/000-cluster/25-mysql-operator/00-namespace.yml)
@@ -18,3 +24,8 @@
 - [Listing 8-13: Presto Helm configuration](/chapter-08/cluster-apk8s-dev5/003-data/095-presto/values.yml)
 - [Listing 8-14: Presto Ingress](/chapter-08/cluster-apk8s-dev5/003-data/095-presto/50-ingress.yml)
 
+
+[Presto]: https://prestodb.io/
+[MySQL]: https://www.mysql.com/
+[Apache Cassandra]: https://cassandra.apache.org/
+[Apache Hive]: https://hive.apache.org/
