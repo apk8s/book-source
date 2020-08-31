@@ -1,3 +1,5 @@
+[![Book Cover - Advanced Platform Development with Kubernetes: Enabling Data Management, the Internet of Things, Blockchain, and Machine Learning](../img/apk8s-banner-w.jpg)](https://imti.co/kubernetes-platform-book/)
+
 # Chapter 11: Platforming AIML
 
 ## Listings
