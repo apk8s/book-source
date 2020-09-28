@@ -7,6 +7,8 @@ Source code from the book [Advanced Platform Development with Kubernetes: Enabli
 
 Read my blog post [Advanced Platform Development with Kubernetes](https://imti.co/kubernetes-platform-book/) for more info and background on the book.
 
+Follow me on Twitter: [@cjimti](https://twitter.com/cjimti) ([Craig Johnston](https://twitter.com/cjimti))
+
 ## Listings
 
 ### Chapter 2: [DevOps Infrastructure](chapter-02)
