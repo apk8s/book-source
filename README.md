@@ -9,7 +9,54 @@ Read my blog post [Advanced Platform Development with Kubernetes](https://imti.c
 
 Follow me on Twitter: [@cjimti](https://twitter.com/cjimti) ([Craig Johnston](https://twitter.com/cjimti))
 
-## Listings
+## Technology Index
+
+|  Technology  |  Chapter  |
+|:---                                            |:---|
+| [Apache Cassandra]                             |Chapter 8: [Data Warehouses](chapter-08)|
+| [Apache Hive]                                  |Chapter 8: [Data Warehouses](chapter-08)|
+| [Apache Kafka]                                 |Chapter 5: [Pipeline](chapter-05)|
+| [Apache NiFi]                                  |Chapter 9: [Routing and Transformation](chapter-09)|
+| [Apache Zookeeper]                             |Chapter 5: [Pipeline](chapter-05)|
+| [Bash] / Shell Scripting                       |Chapter 11: [Platforming AIML](chapter-11)|
+| [Ceph Block Storage]                           |Chapter 3: [Development Environment](chapter-03)|
+| [Ceph Filesystem]                              |Chapter 3: [Development Environment](chapter-03)|
+| [Cert Manager]                                 |Chapter 2: [DevOps Infrastructure](chapter-02) |
+| [CronJob]                                      |Chapter 11: [Platforming AIML](chapter-11)|
+| [Docker]                                       |Chapter 3: [Development Environment](chapter-03)|
+| [Elasticsearch]                                |Chapter 6: [Indexing and Analytics](chapter-06)|
+| [Ethereum]                                     |Chapter 10: [Platforming Blockchain](chapter-10)|
+| [Ethstats]                                     |Chapter 10: [Platforming Blockchain](chapter-10)|
+| [Geth]                                         |Chapter 10: [Platforming Blockchain](chapter-10)|
+| [GitLab CI]                                    |Chapter 4: [In-Platform CI/CD](chapter-04)|
+| [GitLab]                                       |Chapter 2: [DevOps Infrastructure](chapter-02)|
+| [Golang]                                       |Chapter 7: [Data Lake](chapter-07)|
+| [Ingress Nginx]                                |Chapter 3: [Development Environment](chapter-03)|
+| [JupyterHub]                                   |Chapter 6: [Indexing and Analytics](chapter-06)|
+| [JupyterLab]                                   |Chapter 4: [In-Platform CI/CD](chapter-04)|
+| [Kaniko]                                       |Chapter 4: [In-Platform CI/CD](chapter-04)|
+| [Keycloak] (IAM)                               |Chapter 6: [Indexing and Analytics](chapter-06)|
+| [Kibana]                                       |Chapter 6: [Indexing and Analytics](chapter-06)|
+| [Kilo] (Automated [WireGuard])                 |Chapter 11: [Platforming AIML](chapter-11)|
+| [Kubernetes API]                               |Chapter 6: [Indexing and Analytics](chapter-06)|
+| [Kubernetes] ([kubelet], [kubeadm], [kubectl]) |Chapter 3: [Development Environment](chapter-03)|
+| [Logstash]                                     |Chapter 6: [Indexing and Analytics](chapter-06)|
+| [MLflow]                                       |Chapter 11: [Platforming AIML](chapter-11)|
+| [MinIO]                                        |Chapter 7: [Data Lake](chapter-07)|
+| Monitoring ([kube-prometheus])                 |Chapter 3: [Development Environment](chapter-03)|
+| [Mosquitto] (MQTT)                             |Chapter 5: [Pipeline](chapter-05)|
+| [MySQL]                                        |Chapter 8: [Data Warehouses](chapter-08)|
+| [Nvidia] / [CUDA]                              |Chapter 11: [Platforming AIML](chapter-11)|
+| [OpenFaaS]                                     |Chapter 9: [Routing and Transformation](chapter-09)|
+| [Presto]                                       |Chapter 8: [Data Warehouses](chapter-08)|
+| [Python]                                       |Chapter 4: [In-Platform CI/CD](chapter-04)|
+| [Raspberry Pi]                                 |Chapter 3: [Development Environment](chapter-03)|
+| [Rook Ceph]                                    |Chapter 3: [Development Environment](chapter-03)|
+| [Seldon Core]                                  |Chapter 11: [Platforming AIML](chapter-11)|
+| [WireGuard]                                    |Chapter 3: [Development Environment](chapter-03)|
+| [k3s]                                          |Chapter 2: [DevOps Infrastructure](chapter-02)|
+
+## Listing Index
 
 ### Chapter 2: [DevOps Infrastructure](chapter-02)
 
@@ -148,7 +195,7 @@ Follow me on Twitter: [@cjimti](https://twitter.com/cjimti) ([Craig Johnston](ht
 - [Listing 10-13: Geth transaction node Deployment](/chapter-10/cluster-apk8s-eth/003-data/200-eth/50-tx/30-deployment.yml)
 - [Listing 10-14: OpenFaaS function for returning details on the last block in the Blockchain](/chapter-10/cluster-apk8s-eth/003-data/200-eth/functions/last-block/handler.py)<!-- @IGNORE PREVIOUS: link -->
 
-### Chapter 11: [Platforming AIML](chapter-10)
+### Chapter 11: [Platforming AIML](chapter-11)
 
 - [Listing 11-1: Signal Monitor script ConfigMap](/chapter-11/cluster-apk8s-hc1/020-data/220-smon/20-configmap.yml)
 - [Listing 11-2: Signal Monitor DaemonSet deployment](/chapter-11/cluster-apk8s-hc1/020-data/220-smon/40-daemonset.yml)
@@ -166,3 +213,50 @@ Follow me on Twitter: [@cjimti](https://twitter.com/cjimti) ([Craig Johnston](ht
 - [Listing 11-14: MLflow Ingress](/chapter-11/cluster-apk8s-hc1/020-data/800-mlflow/50-ingress.yml)
 - [Listing 11-15: Secret containing s3 (MinIO) config and credentials](/chapter-11/cluster-apk8s-c2/000-sd-s3-secret.yml)
 - [Listing 11-16: SeldonDeployment with Ingress](/chapter-11/cluster-apk8s-c2/100-sd-quality.yml)
+
+[Apache Cassandra]: https://cassandra.apache.org/
+[Apache Hive]: https://hive.apache.org/
+[Apache Kafka]: https://kafka.apache.org/
+[Apache NiFi]: https://nifi.apache.org/
+[Apache Zookeeper]: https://zookeeper.apache.org/
+[Bash]: https://www.gnu.org/software/bash/
+[CUDA]: https://developer.nvidia.com/cuda-zone
+[Ceph Block Storage]: https://rook.io/docs/rook/v1.4/ceph-block.html
+[Ceph Filesystem]: https://rook.io/docs/rook/v1.4/ceph-filesystem.html
+[Cert Manager]: https://cert-manager.io/
+[CronJob]: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/
+[Docker]: https://www.docker.com/
+[Elasticsearch]: https://www.elastic.co/elasticsearch/
+[Ethereum]: https://ethereum.org/en/
+[Ethstats]: https://github.com/cubedro/eth-netstats
+[Geth]: https://geth.ethereum.org/
+[GitLab CI]: https://docs.gitlab.com/ce/ci/
+[GitLab]: https://about.gitlab.com/
+[Golang]: https://golang.org/
+[Ingress Nginx]: https://github.com/kubernetes/ingress-nginx
+[JupyterHub]: https://jupyter.org/hub
+[JupyterLab]: https://github.com/jupyterlab/jupyterlab
+[Kaniko]: https://github.com/GoogleContainerTools/kaniko
+[Keycloak]: https://www.keycloak.org/
+[Kibana]: https://www.elastic.co/kibana
+[Kilo]: https://github.com/squat/kilo
+[Kubernetes API]: https://kubernetes.io/docs/concepts/overview/kubernetes-api/
+[Kubernetes]: https://kubernetes.io/
+[Logstash]: https://www.elastic.co/logstash
+[MLflow]: https://mlflow.org/
+[MinIO]: https://min.io/
+[Mosquitto]: https://mosquitto.org/
+[MySQL]: https://www.mysql.com/
+[Nvidia]: https://www.nvidia.com/en-us/
+[OpenFaaS]: https://www.openfaas.com/
+[Presto]: https://prestodb.io/
+[Python]: https://www.python.org/
+[Raspberry Pi]: https://www.raspberrypi.org/
+[Rook Ceph]: https://rook.io/docs/rook/v1.4/ceph-storage.html
+[Seldon Core]: https://www.seldon.io/tech/products/core/
+[WireGuard]: https://www.wireguard.com/
+[k3s]: https://k3s.io/
+[kube-prometheus]: https://github.com/prometheus-operator/kube-prometheus
+[kubeadm]: https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+[kubectl]: https://kubernetes.io/docs/reference/kubectl/overview/
+[kubelet]: https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
