@@ -1,0 +1,134 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+$> kubectl logs mycluster-0 -c initmysql
+...
+[Entrypoint] Initializing database
+2022-04-21T19:14:40.315937Z 0 [Note] [MY-010949] [Server] Basedir set to /usr/.
+2022-04-21T19:14:40.315977Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.29) initializing of server in progress as process 19
+2022-04-21T19:14:40.317974Z 0 [Note] [MY-010458] [Server] --initialize specified on an existing data directory.
+2022-04-21T19:14:40.323039Z 0 [Note] [MY-010938] [Server] Generating a new UUID: 4af9d5b7-c1a7-11ec-9663-0242ac110007.
+2022-04-21T19:14:40.329396Z 0 [Note] [MY-012366] [InnoDB] Using Linux native AIO
+2022-04-21T19:14:40.330470Z 0 [Note] [MY-010747] [Server] Plugin 'FEDERATED' is disabled.
+2022-04-21T19:14:40.398051Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+...
+2022-04-21T19:14:42.103049Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2022-04-21T19:14:42.201557Z 1 [Note] [MY-011088] [Server] Data dictionary initializing version '80023'.
+2022-04-21T19:14:43.367575Z 1 [Note] [MY-010007] [Server] Installed data dictionary with version 80023
+2022-04-21T19:14:43.678363Z 2 [Note] [MY-011019] [Server] Created system views with I_S version 80023.
+...
+[Entrypoint] running /docker-entrypoint-initdb.d/initdb-localroot.sql
+...
+2022-04-21T19:15:01.834127Z 12 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.29).
+...
+2022-04-21T19:15:03.832074Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.29)
+[Entrypoint] Server shut down
+[Entrypoint] MySQL init process done. Ready for start up.
+[Entrypoint] MYSQL_INITIALIZE_ONLY is set, exiting without starting MySQL...
+$> kubectl logs mycluster-0 -c initconf
+
+2022-04-21 19:14:35: Info: Credential store mechanism is going to be disabled.
+2022-04-21 19:14:35: Info: Loading startup files...
+2022-04-21 19:14:35: Info: Loading plugins...
+2022-04-21T19:14:37 - [INFO] [initmysql] MySQL Operator/init_main.py=2.0.4 timestamp=2022-04-21T14:43:15 kopf=1.31.0 uid=27
+2022-04-21T19:14:37 - [INFO] [initmysql] Configuring mysql pod default/mycluster-0, datadir=/var/lib/mysql
+total 0
+/mnt:
+total 8
+drwxrwsrwx 3 root mysql 4096 Apr 21 19:14 initconf
+drwxrwsrwx 2 root mysql 4096 Apr 21 19:14 mycnfdata
+
+/mnt/initconf:
+total 0
+lrwxrwxrwx 1 root mysql 19 Apr 21 19:14 00-basic.cnf -> ..data/00-basic.cnf
+lrwxrwxrwx 1 root mysql 31 Apr 21 19:14 01-group_replication.cnf -> ..data/01-group_replication.cnf
+lrwxrwxrwx 1 root mysql 17 Apr 21 19:14 02-ssl.cnf -> ..data/02-ssl.cnf
+lrwxrwxrwx 1 root mysql 19 Apr 21 19:14 99-extra.cnf -> ..data/99-extra.cnf
+lrwxrwxrwx 1 root mysql 27 Apr 21 19:14 initdb-localroot.sql -> ..data/initdb-localroot.sql
+lrwxrwxrwx 1 root mysql 23 Apr 21 19:14 livenessprobe.sh -> ..data/livenessprobe.sh
+lrwxrwxrwx 1 root mysql 16 Apr 21 19:14 my.cnf.in -> ..data/my.cnf.in
+lrwxrwxrwx 1 root mysql 24 Apr 21 19:14 readinessprobe.sh -> ..data/readinessprobe.sh
+
+/mnt/mycnfdata:
+total 0
+2022-04-21T19:14:38 - [INFO] [initmysql] Setting up configurations for mycluster-0 server_id=1000 
+                                         report_host=mycluster-0.mycluster-instances.default.svc.cluster.local
+2022-04-21T19:14:38 - [INFO] [initmysql] Configuration done
+için initconfConfigMap'lerini görüntüleyebilirsiniz, örneğin:
+
+$> kubectl get configmap mycluster-initconf -o yaml
+Buraya kopyalanan [data] nesnesidir:
+
+data:
+  00-basic.cnf: |
+    # Basic configuration.
+    # Do not edit.
+    [mysqld]
+    plugin_load_add=auth_socket.so
+    loose_auth_socket=FORCE_PLUS_PERMANENT
+    skip_log_error
+    log_error_verbosity=3
+  01-group_replication.cnf: |
+    # GR and replication related options
+    # Do not edit.
+    [mysqld]
+    log_bin=mycluster
+    enforce_gtid_consistency=ON
+    gtid_mode=ON
+    relay_log_info_repository=TABLE
+    skip_slave_start=1
+  02-ssl.cnf: |
+    # SSL configurations
+    # Do not edit.
+    [mysqld]
+    # ssl-ca=/etc/mysql-ssl/ca.pem
+    # ssl-crl=/etc/mysql-ssl/crl.pem
+    # ssl-cert=/etc/mysql-ssl/tls.crt
+    # ssl-key=/etc/mysql-ssl/tls.key
+
+    loose_group_replication_recovery_use_ssl=1
+    # loose_group_replication_recovery_ssl_verify_server_cert=1
+
+    # loose_group_replication_recovery_ssl_ca=/etc/mysql-ssl/ca.pem
+    ## loose_group_replication_recovery_ssl_crl=/etc/mysql-ssl/crl.pem
+    # loose_group_replication_recovery_ssl_cert=/etc/mysql-ssl/tls.crt
+    # loose_group_replication_recovery_ssl_key=/etc/mysql-ssl/tls.key
+  99-extra.cnf: |
+    # Additional user configurations taken from spec.mycnf in InnoDBCluster.
+    # Do not edit directly.
+    [mysqld]
+    innodb_buffer_pool_size=200M
+    innodb_log_file_size=2G
+  my.cnf.in: |
+    # Server identity related options (not shared across instances).
+    # Do not edit.
+    [mysqld]
+    server_id=@@SERVER_ID@@
+    report_host=@@HOSTNAME@@
+    datadir=/var/lib/mysql
+    loose_mysqlx_socket=/var/run/mysqld/mysqlx.sock
+    socket=/var/run/mysqld/mysql.sock
+    local-infile=1
+
+    [mysql]
+    socket=/var/run/mysqld/mysql.sock
+
+    [mysqladmin]
+    socket=/var/run/mysqld/mysql.sock
+
+    !includedir /etc/my.cnf.d
